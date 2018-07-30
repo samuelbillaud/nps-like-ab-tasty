@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Modal :isActive="isActive"/>
+    <Modal :isActive="isActive" @closeModal="isActive = false"/>
   </div>
 </template>
 
