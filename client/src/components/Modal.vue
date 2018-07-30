@@ -1,29 +1,34 @@
 <template>
   <div class="modal-overlay" v-show="isActive">
     <div class="modal-content">
-      <span class="close-button" @click="closeModal">&times;</span>
-      <h1>{{ question }}</h1>
-      <form @submit.prevent="onSubmit">
-          <ul>
-              <li v-for="(item, index) in notes" :key="index">
-                <input-radio
-                  name="note"
-                  :id="item"
-                  :value="item"
-                  :valueRadio="item"
-                  @input="chooseNote"
-                ></input-radio>
-              </li>
-          </ul>
+      <div v-if="!noteIsValid">
+        <span class="close-button" @click="closeModal">&times;</span>
+        <h1>{{ question }}</h1>
+        <form @submit.prevent="onSubmit">
+            <ul>
+                <li v-for="(item, index) in notes" :key="index">
+                  <input-radio
+                    name="note"
+                    :id="item"
+                    :value="item"
+                    :valueRadio="item"
+                    @input="chooseNote"
+                  ></input-radio>
+                </li>
+            </ul>
 
-          <input-text
-            name="comment"
-            placeholder="Votre message ici"
-            @input="writeComment"
-          ></input-text>
+            <input-text
+              name="comment"
+              placeholder="Votre message ici"
+              @input="writeComment"
+            ></input-text>
 
-          <button :disabled="!userNote || !comment">{{ valid }}</button>
-      </form>
+            <button :disabled="!userNote || !comment">{{ valid }}</button>
+        </form>
+      </div>
+      <div v-else>
+        Merci de votre participation :)
+      </div>
     </div>
   </div>
 </template>
@@ -41,7 +46,8 @@ export default {
       valid: 'Valider',
       isDisabled: true,
       userNote: null,
-      comment: null
+      comment: null,
+      noteIsValid: false
     }
   },
   components: {
@@ -64,8 +70,20 @@ export default {
     closeModal () {
       this.$emit('closeModal')
     },
+    register () {
+      let response = {
+        question: this.question,
+        note: this.userNote,
+        comment: this.comment
+      }
+      localStorage.setItem('response', JSON.stringify(response))
+    },
     onSubmit () {
-      console.log('onSubmit')
+      this.register()
+      this.noteIsValid = true
+      setTimeout(() => {
+        this.closeModal()
+      }, 2000)
     }
   }
 }
