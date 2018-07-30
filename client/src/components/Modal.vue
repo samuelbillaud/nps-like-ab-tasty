@@ -1,9 +1,9 @@
 <template>
   <div class="modal-overlay" v-show="isActive">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
+            <span class="close-button" @click="closeModal">&times;</span>
             <h1>{{ question }}</h1>
-            <form>
+            <form @submit.prevent="onSubmit">
                 <ul>
                     <li v-for="(item, index) in notes" :key="index">
                       <input-radio
@@ -15,6 +15,13 @@
                       ></input-radio>
                     </li>
                 </ul>
+
+                <input-text
+                  name="comment"
+                  placeholder="Votre message ici"
+                  @input="writeComment"
+                ></input-text>
+
                 <button :disabled="!userNote || !comment">{{ valid }}</button>
             </form>
         </div>
@@ -23,6 +30,7 @@
 
 <script>
 import InputRadio from '@/components/InputRadio'
+import InputText from '@/components/InputText'
 
 export default {
   name: 'Modal',
@@ -33,11 +41,12 @@ export default {
       valid: 'Valider',
       isDisabled: true,
       userNote: null,
-      comment: 'null'
+      comment: null
     }
   },
   components: {
-    InputRadio
+    InputRadio,
+    InputText
   },
   props: {
     isActive: {
@@ -51,6 +60,12 @@ export default {
     },
     writeComment (value) {
       this.comment = value
+    },
+    closeModal () {
+      this.$emit('closeModal')
+    },
+    onSubmit () {
+      console.log('onSubmit')
     }
   }
 }
