@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <Modal :isActive="isActive"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import Modal from './components/Modal'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      isActive: false
+    }
+  },
   components: {
-    HelloWorld
+    Modal
+  },
+  mounted () {
+    console.log('test')
+    setTimeout(() => {
+      this.isActive = true
+    }, 2000)
   }
 }
 </script>
