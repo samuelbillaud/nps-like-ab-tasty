@@ -5,31 +5,39 @@
             <h1>{{ question }}</h1>
             <form>
                 <ul>
-                    <li v-for="(item, index) in maxNote" :key="index">
-                        <input
-                          type="radio"
-                          name="note"
-                          :value="index"
-                          :id="index">
-                        <label :for="index">{{ index }}</label>
+                    <li v-for="(item, index) in notes" :key="index">
+                      <input-radio
+                        name="note"
+                        :id="item"
+                        :value="item"
+                        :valueRadio="item"
+                        @input="chooseNote"
+                      ></input-radio>
                     </li>
                 </ul>
-                <button :disabled="isDisabled">{{ valid }}</button>
+                <button :disabled="!userNote || !comment">{{ valid }}</button>
             </form>
         </div>
   </div>
 </template>
 
 <script>
+import InputRadio from '@/components/InputRadio'
+
 export default {
   name: 'Modal',
   data () {
     return {
       question: 'Aimez-vous notre site ?',
-      maxNote: 6,
+      notes: ['0', '1', '2', '3', '4', '5'],
       valid: 'Valider',
-      isDisabled: true
+      isDisabled: true,
+      userNote: null,
+      comment: 'null'
     }
+  },
+  components: {
+    InputRadio
   },
   props: {
     isActive: {
@@ -38,8 +46,11 @@ export default {
     }
   },
   methods: {
-    submit () {
-
+    chooseNote (value) {
+      this.userNote = value
+    },
+    writeComment (value) {
+      this.comment = value
     }
   }
 }
