@@ -38,3 +38,11 @@ export default {
   }
 }
 </script>
+<style scoped>
+    textarea {
+        display: block;
+        margin: auto;
+        width: 300px;
+        min-height: 100px;
+    }
+</style>

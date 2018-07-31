@@ -114,7 +114,9 @@ export default {
 }
 
 .close-button {
-  float: right;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   width: 1.5rem;
   line-height: 1.5rem;
   text-align: center;
@@ -125,5 +127,29 @@ export default {
 
 .close-button:hover {
   background-color: darkgray
+}
+
+ul{
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  display: inline-block;
+  margin: 10px;
+}
+
+button {
+  border: none;
+  box-shadow: none;
+  padding: 10px 40px;
+  border-radius: 5px;
+  margin-top: 30px;
+  background: #0e99cb;
+  color: #fff;
+}
+
+button:disabled {
+  background: #ededed;
 }
 </style>
