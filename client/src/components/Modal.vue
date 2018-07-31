@@ -147,9 +147,11 @@ button {
   margin-top: 30px;
   background: #0e99cb;
   color: #fff;
+  cursor: pointer;
 }
 
 button:disabled {
   background: #ededed;
+  cursor: not-allowed;
 }
 </style>
